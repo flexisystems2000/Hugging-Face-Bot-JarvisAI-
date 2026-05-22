@@ -8,16 +8,16 @@ RUN apk add --no-cache \
 
 WORKDIR /app
 
-# Copy dependency mappings first to optimize caching
-COPY package.json ./
+# Step 1: Copy your package details directly from the subfolder path
+COPY Hugging-Face-Bot-JarvisAI--main/package.json ./
 
-# Force a clean installation of Node 20 packages
+# Step 2: Run clean package installation
 RUN npm install --no-audit --no-fund
 
-# Copy the rest of your application code
-COPY . .
+# Step 3: Copy all application files out from the subfolder into the root app space
+COPY Hugging-Face-Bot-JarvisAI--main/ .
 
-# Grant wide-open permissions for Baileys authentication session files
+# Step 4: Grant permission overrides for your Baileys session management data
 RUN chmod -R 777 /app
 
 EXPOSE 7860
